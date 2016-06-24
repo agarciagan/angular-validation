@@ -29,6 +29,27 @@ API
        email-success-message="Good Email"/>
 ```
 
+### **Add  Custom Valid Message (error, success) overriding default messages and translated with  angular-translate for a custom validation (`equals`) that checks if two values of a form equal** <br/>
+Note that if the name of the validator has uppercase characters, they have to be converted to lowercase for the error/success messages,i.e if the validator is equalsTo, the messages elements should be equalsto-error-message and equalsto-success-message, 
+
+`equals-error-message` and `equals-success-message`
+
+```html
+$validationProvider 
+.setExpression({ 
+	equals: function(value, scope, element, attrs)
+	{ return value === attrs.validatorModel; } 
+	}) 
+.setDefaultMsg({ 
+equals: { error: 'Field is not equal to model', 
+success: 'Equals to model' } 
+}) ;
+```
+
+```html
+<input  id="equals" ng-model="angularModel2" name="equals" value="" class="form-control input-md" type="password" validator="equals" validator-model="{{angularModel1}}" valid-method="blur" equals-error-message="{{ 'Different from angularModel1 ' | translate }}"  equals-success-message="{{ 'Equals to angularModel1' | translate }}"/>``
+```
+
 ### **Use Default Valid Message** <br/>
 *You don't need to give valid message* - the valid/invalid message will be automatically placed next to your input element.
 
